@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #define screen_width 800
 #define screen_height 600
-#define rows 10
-#define columns 10
+#define rows 40
+#define columns 60
 
 
 float random_value(int value){
@@ -38,8 +38,8 @@ model update_model(model cells){
       else if(i== 0 && j == columns - 1){
 	new.cellular[0][columns - 1].prob = 1 - cells.cellular[1][columns - 1].prob*cells.cellular[0][columns - 2].prob;
       }
-      else if(i == 9 && j == 9){
-	new.cellular[9][9].prob = 1 - cells.cellular[8][9].prob*cells.cellular[9][8].prob;
+      else if(i == rows - 1 && j == columns - 1){
+	new.cellular[rows - 1][columns - 1].prob = 1 - cells.cellular[rows - 2][columns -1].prob*cells.cellular[rows -1][columns -2].prob;
       }
       else if(i == 0){
 	new.cellular[0][j].prob = 1 - cells.cellular[0][j-1].prob*cells.cellular[0][j+1].prob*cells.cellular[1][j].prob;
@@ -63,17 +63,17 @@ model update_model(model cells){
 int main(){
 
   InitWindow(screen_width,screen_height,"window");
-  SetTargetFPS(1);
+  SetTargetFPS(10);
   srand(time(0));
 
   model cells = {0};
 
-  int x = (int) random_value(10);
-  int y = (int) random_value(10);
+  int x = (int) random_value(rows);
+  int y = (int) random_value(columns);
   
 
   for (int i = 0; i < x; i++){
-    for (int j = 0; j < x; j++){
+    for (int j = 0; j < y; j++){
       
       int i = (int) random_value(rows);
       int j = (int) random_value(columns);
@@ -83,36 +83,39 @@ int main(){
     }
   }
   
-  
+  int stage = 0;
   while (!WindowShouldClose()){
 
     BeginDrawing();
     ClearBackground(BLACK);
 
-    for (int i = 100; i <= 700; i+= 60){
+    for (int i = 100; i <= screen_width - 100; i+= (screen_width-200)/columns){
 
       Vector2 initial = (Vector2) {i,100};
-      Vector2 final = (Vector2) {i,500};
+      Vector2 final = (Vector2) {i,screen_height - 100};
       DrawLineV(initial,final,WHITE);
 
     }
 
-    for (int i = 100; i <= 500; i +=40){
+    for (int i = 100; i <= screen_height - 100; i += (screen_height - 200)/rows){
 
       Vector2 initial = (Vector2) {100,i};
-      Vector2 final = (Vector2) {700,i};
+      Vector2 final = (Vector2) {screen_width - 100,i};
       DrawLineV(initial,final,WHITE);
     }
 
-    for (int i = 0; i < 10; i++){
-      for (int j = 0; j < 10; j++){
+    for (int i = 0; i < rows; i++){
+      for (int j = 0; j < columns; j++){
 	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.0003){
-	  Vector2 top_left = (Vector2) {100 + 60 * i, 100 + 40 * j};
-	  DrawRectangleV(top_left,(Vector2) {60,40},GREEN);
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},GREEN);
 	}
       }
     }
     cells = update_model(cells);
+    DrawFPS(10,10);
+    DrawText(TextFormat("Gen: %d", stage),10,50,30,RED);
+    stage++;
     EndDrawing();
   }
   CloseWindow();
