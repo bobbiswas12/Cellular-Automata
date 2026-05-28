@@ -4,9 +4,9 @@
 #include <time.h>
 #include <stdlib.h>
 #define screen_width 800
-#define screen_height 600
-#define rows 40
-#define columns 60
+#define screen_height 800
+#define rows 120
+#define columns 120
 
 
 float random_value(int value){
@@ -108,7 +108,7 @@ int main(){
       for (int j = 0; j < columns; j++){
 	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.0003){
 	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
-	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},GREEN);
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},BLACK);
 	}
       }
     }
