@@ -5,9 +5,9 @@
 #include <stdlib.h>
 #define screen_width 800
 #define screen_height 800
-#define rows 200
-#define columns 200
-#define fps 10
+#define rows 80
+#define columns 80
+#define fps 1
 
 float random_value(float value){
 
@@ -87,6 +87,21 @@ model noise(model cells,float noise_volume){
 
   return cells;
 }
+
+int population_model(model cells){
+
+  int population = 0;
+  for (int i = 0; i < rows; i++){
+    for (int j = 0; j < columns; j++){
+
+      if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.0001){
+	population++;
+      }
+    }
+  }
+
+  return population;
+}
 	
 int main(){
 
@@ -114,6 +129,7 @@ int main(){
   int stage = 0;
   while (!WindowShouldClose()){
 
+    int population = 0;
     BeginDrawing();
     ClearBackground(BLACK);
 
@@ -134,16 +150,18 @@ int main(){
 
     for (int i = 0; i < rows; i++){
       for (int j = 0; j < columns; j++){
-	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.01){
+	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.0001){
 	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
 	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},WHITE);
 	}
       }
     }
+    population = population_model(cells);
     cells = update_model(cells);
-    cells = noise(cells,0.05);
+    cells = noise(cells,1);
     DrawFPS(10,10);
     DrawText(TextFormat("Gen: %d", stage),10,50,30,RED);
+    DrawText(TextFormat("Population share : %f %c", (float)population*100/(rows*columns),'%'),300,50,30,RED);
     stage++;
     EndDrawing();
   }
