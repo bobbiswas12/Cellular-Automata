@@ -5,9 +5,9 @@
 #include <time.h>
 #define screen_width 800
 #define screen_height 800
-#define rows 120
-#define columns 120
-#define fps 10
+#define rows 200
+#define columns 200
+#define fps 30
 
 float random_value(float value){
 
@@ -98,7 +98,7 @@ void draw_model(model cells){
 model update_model(model cells){
 
   model new = {0};
-  int rule[8] = {0,1,0,0,0,0,1,1};
+  int rule[8] = {1,0,1,1,0,1,0,1};
   for (int i = 0; i < rows; i++){
     for (int j = 0; j < columns; j++){
       if (j == 0 || j == columns - 1){
