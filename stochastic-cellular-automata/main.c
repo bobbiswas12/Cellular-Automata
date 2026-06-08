@@ -7,7 +7,7 @@
 #define screen_height 800
 #define rows 80
 #define columns 80
-#define fps 1
+#define fps 10
 
 float random_value(float value){
 
@@ -131,7 +131,7 @@ int main(){
 
     int population = 0;
     BeginDrawing();
-    ClearBackground(BLACK);
+    ClearBackground(WHITE);
 
     /* for (int i = 100; i <= screen_width - 100; i+= (screen_width-200)/columns){ */
 
@@ -150,9 +150,29 @@ int main(){
 
     for (int i = 0; i < rows; i++){
       for (int j = 0; j < columns; j++){
-	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.0001){
+	if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.2){
 	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
-	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},WHITE);
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},MAROON);
+	}
+	else if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.15){
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},RED);
+	}
+	else if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.10){
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},ORANGE);
+	}
+	else if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.05){
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},GOLD);
+	}
+	else if (cells.cellular[i][j].state && cells.cellular[i][j].prob >= 0.001){
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},YELLOW);
+	}
+	else{
+	  Vector2 top_left = (Vector2) {100 + ((screen_width-200)/columns) * j, 100 + ((screen_height - 200)/rows) * i};
+	  DrawRectangleV(top_left,(Vector2) {(screen_width-200)/columns,(screen_height - 200)/rows},BLACK);
 	}
       }
     }
