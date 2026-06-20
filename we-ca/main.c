@@ -1,5 +1,5 @@
 
-/* This is an implementation of the Conway's game of life program in C using Raylib. */
+/* This is an implementation of the Wolfram Elementary Cellular Automata in C using Raylib. */
 /* Copyright (C) 2026  Tanmay Rai */
 
 /* This program is free software: you can redistribute it and/or modify */

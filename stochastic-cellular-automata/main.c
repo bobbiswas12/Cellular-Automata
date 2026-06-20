@@ -1,5 +1,8 @@
 
-/* This is an implementation of the Conway's game of life program in C using Raylib. */
+/* Implementation of a "Stochastic Cellular Automata", which unlike Conway's */
+/* Game of life, isn't deterministic. That is the Rules governing the transition */
+/* from one particular generation to the next are probabilistic. */
+
 /* Copyright (C) 2026  Tanmay Rai */
 
 /* This program is free software: you can redistribute it and/or modify */
