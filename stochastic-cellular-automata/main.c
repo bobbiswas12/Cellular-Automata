@@ -1,6 +1,21 @@
-#include <stdio.h>
+
+/* This is an implementation of the Conway's game of life program in C using Raylib. */
+/* Copyright (C) 2026  Tanmay Rai */
+
+/* This program is free software: you can redistribute it and/or modify */
+/* it under the terms of the GNU General Public License as published by */
+/* the Free Software Foundation, either version 3 of the License, or */
+/*    (at your option) any later version. */
+
+/*    This program is distributed in the hope that it will be useful, */
+/*    but WITHOUT ANY WARRANTY; without even the implied warranty of */
+/*    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the */
+/*    GNU General Public License for more details. */
+
+/*    You should have received a copy of the GNU General Public License */
+/*    along with this program.  If not, see <https://www.gnu.org/licenses/>. */
+
 #include "raylib.h"
-#include <math.h>
 #include <time.h>
 #include <stdlib.h>
 #define screen_width 800
@@ -39,8 +54,8 @@ model update_model(model cells){
       else if(i== 0 && j == columns - 1){
 	new.cellular[0][columns - 1].prob = (cells.cellular[1][columns - 1].prob*cells.cellular[0][columns - 2].prob)/2;
       }
-       else if(i == rows - 1 && j == 0){
-	 new.cellular[i][j].prob = (cells.cellular[i-1][j].prob * cells.cellular[i][j+1].prob)/2;
+      else if(i == rows - 1 && j == 0){
+	new.cellular[i][j].prob = (cells.cellular[i-1][j].prob * cells.cellular[i][j+1].prob)/2;
       }
       else if(i == rows - 1 && j == columns - 1){
 	new.cellular[rows - 1][columns - 1].prob = (cells.cellular[rows - 2][columns -1].prob*cells.cellular[rows -1][columns -2].prob)/2;
