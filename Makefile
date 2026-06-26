@@ -3,3 +3,4 @@ build:
 	gcc we-ca/main.c -o elementry-ca -lraylib -lm -lpthread -ldl -lrt
 	gcc game-of-life/main.c -o game_of_life -lraylib -lpthread 
 	gcc langtons_ant/main.c -o l_ant -lraylib -lpthread
+	gcc stochastic-cellular-automata/tooms_rule.c -o tooms-rule -lraylib -lpthread
